@@ -9,7 +9,7 @@ import android.widget.TextView;
 
 import com.min.refreshloader.R;
 import com.min.refreshloader.base.HFRecyclerViewAdapter;
-import com.min.refreshloader.bean.response.AnimalBean;
+import com.min.refreshloader.bean.AnimalBean;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;

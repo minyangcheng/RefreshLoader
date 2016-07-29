@@ -7,9 +7,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.min.refreshloader.R;
+import com.min.refreshloader.app.AppConstants;
 import com.min.refreshloader.base.HFRecyclerViewAdapter;
 import com.min.refreshloader.base.PageLoader;
-import com.min.refreshloader.bean.api.BaseApi;
 import com.min.refreshloader.util.ListUtils;
 import com.min.refreshloader.util.UIUtils;
 import com.min.refreshloader.view.StateLayout;
@@ -32,7 +32,7 @@ public abstract class RefreshLoaderDelegate<DATATYPE
     protected static final int STATE_EROOR=3;
     protected static final int STATE_LOADING=4;
 
-    private Context mContext;
+    protected Context mContext;
 
     @Bind(R.id.view_state)
     protected StateLayout mStateView;
@@ -91,6 +91,8 @@ public abstract class RefreshLoaderDelegate<DATATYPE
 
     protected abstract void onLoadMoreData();
 
+    protected abstract ADAPTER getRecycleViewAdapter();
+
     protected boolean getPaginationEnable(){
         return false;
     }
@@ -142,7 +144,7 @@ public abstract class RefreshLoaderDelegate<DATATYPE
 
     protected void judgeLoadFinally(List<DATATYPE> receiveList){
         if(mPageLoader==null) return;
-        if(receiveList==null||receiveList.size()< BaseApi.PAGE_SIZE){
+        if(receiveList==null||receiveList.size()< AppConstants.PAGE_SIZE){
             mPageLoader.setLoadFianlly(true);
         }else{
             mPageLoader.setLoadFianlly(false);
@@ -156,7 +158,7 @@ public abstract class RefreshLoaderDelegate<DATATYPE
         mListRv.setAdapter(mAdapter);
         if(getPaginationEnable()){
             mPageLoader=new PageLoader(mListRv);
-            //如果不分页
+            //如果分页
             mPageLoader.setLoadListener(new PageLoader.OnLoadListener() {
                 @Override
                 public void onLoad() {
@@ -165,8 +167,6 @@ public abstract class RefreshLoaderDelegate<DATATYPE
             });
         }
     }
-
-    protected abstract ADAPTER getRecycleViewAdapter();
 
     protected DividerItemDecoration getItemDecoration(){
         DividerItemDecoration decoration=new DividerItemDecoration(mContext,

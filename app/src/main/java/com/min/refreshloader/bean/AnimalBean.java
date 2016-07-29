@@ -1,4 +1,4 @@
-package com.min.refreshloader.bean.response;
+package com.min.refreshloader.bean;
 
 /**
  * Created by minyangcheng on 2016/7/29.
