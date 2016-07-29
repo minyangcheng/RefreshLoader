@@ -9,7 +9,7 @@
 
 1. 首先将上拉刷新和状态切换显示放在一起封装成一个控件RefreshLoaderView，之后可以在fragment或activity中直接使用。
 
-````
+```
 <com.min.refreshloader.view.StateLayout  xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -24,11 +24,11 @@
             android:layout_height="match_parent"/>
     </android.support.v4.widget.SwipeRefreshLayout>
 </com.min.refreshloader.view.StateLayout>
-````
+```
 
 2. 刷新和加载的处理完全由抽象类RefreshLoaderDelegate来实现，该类主要的几个方法：
 
-````
+```
 //实现刷新具体请求逻辑
 protected abstract void onRefreshData();
 
@@ -100,6 +100,6 @@ protected void judgeLoadFinally(List<DATATYPE> receiveList){
         mPageLoader.setLoadFianlly(false);
     }
 }
-````
+```
 
 3. 当你的列表api请求逻辑比较统一时，推荐继承RefreshLoaderDelegate，直接封装好onRefreshData和onLoadMoreData方法，以后你的项目需要添加列表时，只需要复写getRecycleViewAdapter传递响应的adapter即可，非常方便。
