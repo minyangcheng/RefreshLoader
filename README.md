@@ -102,4 +102,4 @@ protected void judgeLoadFinally(List<DATATYPE> receiveList){
 }
 ````
 
-3.当你的列表api请求逻辑比较统一时，推荐继承RefreshLoaderDelegate，直接封装好onRefreshData和onLoadMoreData方法，以后你的项目需要添加列表时，只需要复写getRecycleViewAdapter传递响应的adapter即可，非常方便。
+3. 当你的列表api请求逻辑比较统一时，推荐继承RefreshLoaderDelegate，直接封装好onRefreshData和onLoadMoreData方法，以后你的项目需要添加列表时，只需要复写getRecycleViewAdapter传递响应的adapter即可，非常方便。
