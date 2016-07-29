@@ -1,11 +1,18 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="stateLayoutDefStyle">@style/stateLayoutStyle</item>
+    </style>
+
+    <style name="stateLayoutStyle">
+        <item name="loading_layout">@layout/state_loadding</item>
+        <item name="empty_layout">@layout/state_empty</item>
+        <item name="error_layout">@layout/state_error</item>
     </style>
 
 </resources>

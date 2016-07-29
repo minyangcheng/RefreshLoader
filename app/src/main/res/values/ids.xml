@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="iv_empty_img" type="id">false</item>
+    <item name="tv_empty_desc" type="id">false</item>
+    <item name="iv_error_img" type="id">false</item>
+    <item name="tv_error_desc" type="id">false</item>
+</resources>
