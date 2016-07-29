@@ -9,7 +9,7 @@
 
 1. 首先将上拉刷新和状态切换显示放在一起封装成一个控件RefreshLoaderView，之后可以在fragment或activity中直接使用。
 
-```
+```java
 <com.min.refreshloader.view.StateLayout  xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -28,7 +28,7 @@
 
 2. 刷新和加载的处理完全由抽象类RefreshLoaderDelegate来实现，该类主要的几个方法：
 
-```
+```java
 //实现刷新具体请求逻辑
 protected abstract void onRefreshData();
 
