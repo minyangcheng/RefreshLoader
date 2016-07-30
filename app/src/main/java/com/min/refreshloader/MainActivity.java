@@ -2,12 +2,10 @@ package com.min.refreshloader;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
 
 import com.min.refreshloader.adapter.AnimalListAdapter;
 import com.min.refreshloader.bean.AnimalBean;
 import com.min.refreshloader.util.UIUtils;
-import com.min.refreshloader.view.divider.DividerItemDecoration;
 import com.min.refreshloader.view.refresh.RefreshLoaderDelegate;
 import com.min.refreshloader.view.refresh.RefreshLoaderView;
 
