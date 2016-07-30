@@ -22,7 +22,7 @@ import butterknife.ButterKnife;
 /**
  * Created by minyangcheng on 2016/7/29.
  */
-public abstract class RefreshLoaderDelegate<DATATYPE
+public abstract class RefactorRefreshLoaderDelegate<DATATYPE
         ,HOLDER extends RecyclerView.ViewHolder
         ,ADAPTER extends HFRecyclerViewAdapter<DATATYPE,HOLDER>>{
 
@@ -49,14 +49,7 @@ public abstract class RefreshLoaderDelegate<DATATYPE
     protected Context mContext;
     protected boolean mPageEnable;
 
-    public RefreshLoaderDelegate(RefreshLoaderView refreshLoaderView,ADAPTER adapter,boolean pageEnable){
-        if(refreshLoaderView==null){
-            throw new IllegalArgumentException("refreshLoaderView 参数不能为空");
-        }
-        if(adapter==null){
-            throw new IllegalArgumentException("adapter 参数不能为空");
-        }
-
+    public RefactorRefreshLoaderDelegate(RefreshLoaderView refreshLoaderView,ADAPTER adapter,boolean pageEnable){
         mContext=refreshLoaderView.getContext();
         mAdapter=adapter;
         mPageEnable=pageEnable;
@@ -71,23 +64,19 @@ public abstract class RefreshLoaderDelegate<DATATYPE
                 ,R.drawable.shape_line);
     }
 
-    public RefreshLoaderDelegate startLoad(){
+    public RefactorRefreshLoaderDelegate startLoad(){
         initViews();
         initData();
         return this;
     }
 
-    public RefreshLoaderDelegate setLayoutManager(RecyclerView.LayoutManager layoutManager){
-        if(layoutManager!=null){
-            mLayoutManager=layoutManager;
-        }
+    public RefactorRefreshLoaderDelegate setLayoutManager(RecyclerView.LayoutManager layoutManager){
+        mLayoutManager=layoutManager;
         return this;
     }
 
-    public RefreshLoaderDelegate setItemDecoration(RecyclerView.ItemDecoration decoration){
-        if(decoration!=null){
-            mDecoration=decoration;
-        }
+    public RefactorRefreshLoaderDelegate setItemDecoration(RecyclerView.ItemDecoration decoration){
+        mDecoration=decoration;
         return this;
     }
 

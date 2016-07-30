@@ -2,9 +2,12 @@ package com.min.refreshloader;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
 
 import com.min.refreshloader.adapter.AnimalListAdapter;
 import com.min.refreshloader.bean.AnimalBean;
+import com.min.refreshloader.util.UIUtils;
+import com.min.refreshloader.view.divider.DividerItemDecoration;
 import com.min.refreshloader.view.refresh.RefreshLoaderDelegate;
 import com.min.refreshloader.view.refresh.RefreshLoaderView;
 
@@ -13,13 +16,14 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class MainActivity extends AppCompatActivity {
 
     @Bind(R.id.rlv)
     RefreshLoaderView mRefreshLoaderView;
 
-    private RefreshLoaderDelegate mRefreshLoaderDelegate;
+    private RefreshLoaderDelegate<AnimalBean, AnimalListAdapter.ItemViewHolder, AnimalListAdapter> mRRLoader;
 
     private int count=0;
 
@@ -28,7 +32,13 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-        mRefreshLoaderDelegate =new RefreshLoaderDelegate<AnimalBean, AnimalListAdapter.ItemViewHolder, AnimalListAdapter>(mRefreshLoaderView) {
+
+        initData();
+    }
+
+    private void initData() {
+        AnimalListAdapter adapter=new AnimalListAdapter(this);
+        mRRLoader=new RefreshLoaderDelegate(mRefreshLoaderView,adapter,true) {
             @Override
             protected void onRefreshData() {
                 count=0;
@@ -56,17 +66,13 @@ public class MainActivity extends AppCompatActivity {
                     }
                 },3000);
             }
+        }.startLoad();
+    }
 
-            @Override
-            protected AnimalListAdapter getRecycleViewAdapter() {
-                return new AnimalListAdapter(mContext);
-            }
-
-            @Override
-            protected boolean getPaginationEnable() {
-                return true;
-            }
-        };
+    @OnClick(R.id.btn_retry)
+    void onClickBtnRetry(){
+        UIUtils.toast(this, "重新加载页面");
+        initData();
     }
 
     public List<AnimalBean> getFakeData(int num){

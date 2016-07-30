@@ -3,7 +3,7 @@
 ####开发时遇到的问题:
 
 1. 下拉刷新上拉加载功能在app内会出现多次出现，该功能的业务逻辑处理包括分页参数、页面为空、页面错误、页面加载中、判断是否加载完毕等等，如果在每个fragment或activity中都进行这一系列的重复处理，代码就会变的非常糟.
-2. 在一个app内部列表的api字段都是大同小异，如果能做一个分页api处理逻辑封装起来，后期写代码也会相当舒服。
+2. app内部列表的api接口字段都是大同小异，如果将列表页面的分页请求接口处理逻辑封装起来，后期写代码也会相当舒服。
 
 ####解决办法：
 
@@ -34,13 +34,6 @@ protected abstract void onRefreshData();
 
 //实现加载具体逻辑
 protected abstract void onLoadMoreData();
-
-protected abstract ADAPTER getRecycleViewAdapter();
-
-//是否开启加载
-protected boolean getPaginationEnable(){
-    return false;
-}
 
 //刷新成功后需主动回调
 protected void setRefreshDataSuccess(List<DATATYPE> receiveList){
@@ -100,6 +93,49 @@ protected void judgeLoadFinally(List<DATATYPE> receiveList){
         mPageLoader.setLoadFianlly(false);
     }
 }
+
+//开启加载
+public RefactorRefreshLoaderDelegate startLoad(){
+    initViews();
+    initData();
+    return this;
+}
+
 ```
 
-* 当你的列表api请求逻辑比较统一时，推荐继承RefreshLoaderDelegate，直接封装好onRefreshData和onLoadMoreData方法，以后你的项目需要添加列表时，只需要复写getRecycleViewAdapter传递响应的adapter即可，非常方便。
+* 推荐继承RefreshLoaderDelegate，根据具体的分页逻辑实现onRefreshData和onLoadMoreData方法，方便以后直接传递adapter，即可实现分页功能。
+
+####使用方法
+
+```
+AnimalListAdapter adapter=new AnimalListAdapter(this);
+mRRLoader=new RefreshLoaderDelegate(mRefreshLoaderView,adapter,true) {
+    @Override
+    protected void onRefreshData() {
+        count=0;
+        mListRv.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                List animalBeanList=getFakeData(15);
+                setRefreshDataSuccess(animalBeanList);
+            }
+        },3000);
+    }
+
+    @Override
+    protected void onLoadMoreData() {
+        mListRv.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                List<AnimalBean> animalBeanList;
+                if(count>=45){
+                    animalBeanList=getFakeData(10);
+                }else {
+                    animalBeanList=getFakeData(15);
+                }
+                setLoadMoreDataSuccess(animalBeanList);
+            }
+        },3000);
+    }
+}.startLoad();
+```
