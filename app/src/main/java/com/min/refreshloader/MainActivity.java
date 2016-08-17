@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.min.refreshloader.adapter.AnimalListAdapter;
 import com.min.refreshloader.bean.AnimalBean;
+import com.min.refreshloader.util.L;
 import com.min.refreshloader.util.UIUtils;
 import com.min.refreshloader.view.refresh.RefreshLoaderDelegate;
 import com.min.refreshloader.view.refresh.RefreshLoaderView;
@@ -51,6 +52,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             protected void onLoadMoreData() {
+                L.i("TEST_MY",this.toString()+"--->onLoadMoreData");
                 mListRv.postDelayed(new Runnable() {
                     @Override
                     public void run() {

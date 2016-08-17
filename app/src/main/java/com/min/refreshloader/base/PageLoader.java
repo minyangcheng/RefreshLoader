@@ -18,6 +18,7 @@ public class PageLoader extends RecyclerView.OnScrollListener {
 
     private static final int TYPE_LOADING=1;
     private static final int TYPE_LOAD_FIAL=2;
+    private static final int TYPE_END=3;
 
     private Context mContext;
     private LinearLayoutManager mLayoutManager;
@@ -45,7 +46,7 @@ public class PageLoader extends RecyclerView.OnScrollListener {
         if(mAdapter==null){
             throw new RuntimeException("must set adapter before init pageloader");
         }
-
+        recyclerView.clearOnScrollListeners();
         recyclerView.addOnScrollListener(this);
         mFooterView = LayoutInflater.from(mContext).inflate(R.layout.item_footer_base_rl, recyclerView,false);
         mHolder=new FooterHolder(mFooterView);
@@ -94,6 +95,10 @@ public class PageLoader extends RecyclerView.OnScrollListener {
 
     public void setLoadFianlly(boolean isFinish){
         mEnable=!isFinish;
+        if(isFinish){
+            showType(TYPE_END);
+            mAdapter.setFooterView(mFooterView);
+        }
     }
 
     public void setLoadListener(OnLoadListener loadListener) {
@@ -110,11 +115,25 @@ public class PageLoader extends RecyclerView.OnScrollListener {
                 mHolder.progressBar.setVisibility(View.VISIBLE);
                 mHolder.loadingView.setVisibility(View.VISIBLE);
                 mHolder.loadFailView.setVisibility(View.GONE);
+                mHolder.endView.setVisibility(View.GONE);
                 break;
             case TYPE_LOAD_FIAL:  //加载失败
                 mHolder.progressBar.setVisibility(View.GONE);
                 mHolder.loadingView.setVisibility(View.GONE);
                 mHolder.loadFailView.setVisibility(View.VISIBLE);
+                mHolder.endView.setVisibility(View.GONE);
+                break;
+            case TYPE_END:  //到底了
+                mHolder.progressBar.setVisibility(View.GONE);
+                mHolder.loadingView.setVisibility(View.GONE);
+                mHolder.loadFailView.setVisibility(View.GONE);
+                mHolder.endView.setVisibility(View.VISIBLE);
+                break;
+            default:
+                mHolder.progressBar.setVisibility(View.GONE);
+                mHolder.loadingView.setVisibility(View.GONE);
+                mHolder.loadFailView.setVisibility(View.GONE);
+                mHolder.endView.setVisibility(View.GONE);
                 break;
         }
     }
@@ -127,6 +146,8 @@ public class PageLoader extends RecyclerView.OnScrollListener {
         View loadingView;
         @Bind(R.id.tv_fail)
         View loadFailView;
+        @Bind(R.id.tv_end)
+        View endView;
 
         public FooterHolder(View view){
             ButterKnife.bind(this,view);
