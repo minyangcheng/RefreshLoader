@@ -33,7 +33,7 @@ public abstract class HFRecyclerViewAdapter<T, VH extends RecyclerView.ViewHolde
     public void setFooterView(View foot){
         if (footerViewHolder == null || foot != footerViewHolder.itemView){
             footerViewHolder = new HFViewHolder(foot);
-            notifyItemInserted(getItemCount());
+            notifyDataSetChanged();
         }
     }
 
@@ -46,7 +46,7 @@ public abstract class HFRecyclerViewAdapter<T, VH extends RecyclerView.ViewHolde
     public void removeFooter(){
         if (footerViewHolder != null){
             footerViewHolder = null;
-            notifyItemRemoved(getItemCount());
+            notifyDataSetChanged();
         }
     }
 

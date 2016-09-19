@@ -5,6 +5,6 @@ package com.min.refreshloader.app;
  */
 public class AppConstants {
 
-    public static final int PAGE_SIZE=15;
+    public static final int PAGE_SIZE=6;
 
 }

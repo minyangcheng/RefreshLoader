@@ -13,7 +13,8 @@
     <com.min.refreshloader.view.refresh.RefreshLoaderView
         android:id="@+id/rlv"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="200dp"
+        android:background="#FFEFDB">
     </com.min.refreshloader.view.refresh.RefreshLoaderView>
 
 </LinearLayout>

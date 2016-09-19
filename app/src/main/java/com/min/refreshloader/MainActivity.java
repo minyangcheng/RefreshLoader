@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
                 mListRv.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        List animalBeanList=getFakeData(15);
+                        List animalBeanList=getFakeData(6);
                         setRefreshDataSuccess(animalBeanList);
                     }
                 },3000);
@@ -57,14 +57,14 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void run() {
                         List<AnimalBean> animalBeanList;
-                        if(count>=45){
-                            animalBeanList=getFakeData(10);
+                        if(count>=12){
+                            animalBeanList=getFakeData(0);
                         }else {
-                            animalBeanList=getFakeData(15);
+                            animalBeanList=getFakeData(6);
                         }
                         setLoadMoreDataSuccess(animalBeanList);
                     }
-                },3000);
+                },1000);
             }
         }.startLoad();
     }
